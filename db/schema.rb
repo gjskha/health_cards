@@ -10,11 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_28_195550) do
+ActiveRecord::Schema.define(version: 2021_06_22_174803) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
 
   create_table "immunizations", force: :cascade do |t|
-    t.integer "patient_id"
-    t.integer "vaccine_id"
+    t.bigint "patient_id"
+    t.bigint "vaccine_id"
     t.string "json"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -23,7 +26,7 @@ ActiveRecord::Schema.define(version: 2021_06_28_195550) do
   end
 
   create_table "lab_results", force: :cascade do |t|
-    t.integer "patient_id"
+    t.bigint "patient_id"
     t.string "json"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -40,13 +43,6 @@ ActiveRecord::Schema.define(version: 2021_06_28_195550) do
     t.string "code"
     t.string "name"
     t.integer "doses_required"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
-  create_table "value_sets", force: :cascade do |t|
-    t.string "oid"
-    t.string "codes"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

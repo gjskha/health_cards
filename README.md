@@ -2,7 +2,7 @@
 
 ![Build](https://github.com/dvci/health_cards/actions/workflows/ruby.yml/badge.svg)
 
-This repository includes a Ruby gem for [SMART Health Cards](https://smarthealth.cards/) **and** a reference implementation for the [SMART Health Cards: Vaccination & Testing Implementation Guide](https://vci.org/ig/vaccination-and-testing). Go to the [Health Card Gem](#health-card-gem) section to read about the Ruby library or go to the [Reference Implementation](#reference-implementation) section to try a ready-to-use rails application.
+This repository includes a Ruby gem for [SMART Health Cards](https://smarthealth.cards/) **and** a reference implementation for the [SMART Health Cards: Vaccination & Testing Implementation Guide](https://vci.org/ig/vaccination-and-testing). Go to the [Health Card Gem](#health-cards-gem) section to read about the Ruby library or go to the [Reference Implementation](#reference-implementation) section to try a ready-to-use rails application.
 
 ## Reference Implementation
 
@@ -30,6 +30,7 @@ Clone and change directory into the repository:
 git clone https://github.com/dvci/health_cards.git
 cd health_cards
 ```
+#### Local Development
 
 Setup environment:
 
@@ -41,6 +42,38 @@ Run server:
 
 Then go to `http://127.0.0.1:3000` to view the locally running application.
 
+#### Docker:
+
+Alternatively, you can create a Docker image and start it in a container:
+```
+docker build -t health_cards .
+docker run -p 3000:3000 --env HOST=https://myserver.com health_cards
+```
+The `HOST` environment variable will be used as the `iss` value in the SMART Health Card JWS.
+By default this value is `http://localhost:3000`.
+The Docker container will be running at `http://127.0.0.1:3000`, unless mapped to a different port.
+
+
+#### Docker Compose 
+
+Docker Compose can be used to deploy a production version of the application behind nginx and is
+especially useful for deploying behind an SSL terminating load balancer.
+
+```
+docker-compose up --build
+```
+
+There are two environment variables which can be configured:
+
+* `HEALTH_CARDS_HOST` is used as the `iss` value in issued Health Cards and for identifying the SMART Endpoint locations
+* `HEALTH_CARDS_SECRET_KEY_BASE` is used by rails as the input secret to the application's key generator, 
+which in turn is used to create all MessageVerifiers/MessageEncryptors, including the ones that 
+sign and encrypt cookies. [See `secret_key_base`](https://api.rubyonrails.org/classes/Rails/Application.html#method-i-secret_key_base)
+
+When deploying a production instance it is important that a new secret base is generated and used. 
+A new secret base can be generated with `bin/rails secret`.
+
+When testing locally `proxy_set_header  X-Forwarded-Ssl on;` should be commented out in `nginx/nginx.conf`.
 
 ## Health Cards Gem
 
@@ -70,9 +103,9 @@ Or install it yourself as:
 
 ### Documentation
 
-See usage examples in [USAGE.md](https://github.com/dvci/health_cards/blob/master/lib/USAGE.md). 
+See usage examples in [USAGE.md](https://github.com/dvci/health_cards/blob/main/lib/USAGE.md). 
 
-See full documentation in [API.md](https://github.com/dvci/health_cards/blob/master/lib/API.md).
+See full documentation in [API.md](https://github.com/dvci/health_cards/blob/main/lib/API.md).
 
 ## Development
 
@@ -82,11 +115,11 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/dvci/health_cards. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [code of conduct](https://github.com/dvci/health_cards/blob/master/CODE_OF_CONDUCT.md).
+Bug reports and pull requests are welcome on GitHub at https://github.com/dvci/health_cards. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [code of conduct](https://github.com/dvci/health_cards/blob/main/CODE_OF_CONDUCT.md).
 
 ## License
 
-Copyright 2020 The MITRE Corporation
+Copyright 2021 The MITRE Corporation
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
 ```
@@ -96,4 +129,4 @@ Unless required by applicable law or agreed to in writing, software distributed 
 
 ## Code of Conduct
 
-Everyone interacting in the HealthCards project's codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/dvci/health_cards/blob/master/CODE_OF_CONDUCT.md).
+Everyone interacting in the HealthCards project's codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/dvci/health_cards/blob/main/CODE_OF_CONDUCT.md).

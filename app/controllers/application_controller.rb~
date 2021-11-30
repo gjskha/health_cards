@@ -10,22 +10,22 @@ class ApplicationController < ActionController::Base
   end
 
   def handle_fhir_errors
-    #if request.format.json? || request.format.fhir_json?
-    #  begin
+    if request.format.json? || request.format.fhir_json?
+      begin
         yield
-    #  rescue StandardError => e
-    #    case e
-    #    when ActiveRecord::RecordNotFound
-    #      render_operation_outcome(code: 'not-found', http: :not_found, error: e)
-    #    when HealthCards::InvalidParametersError
-    #      render_operation_outcome(code: e.code, http: :bad_request, error: e)
-    #    else
-    #      render_operation_outcome(code: 'exception', http: :internal_server_error, error: e)
-    #    end
-    #  end
-    #else
-    #  yield
-    #end
+      rescue StandardError => e
+        case e
+        when ActiveRecord::RecordNotFound
+          render_operation_outcome(code: 'not-found', http: :not_found, error: e)
+        when HealthCards::InvalidParametersError
+          render_operation_outcome(code: e.code, http: :bad_request, error: e)
+        else
+          render_operation_outcome(code: 'exception', http: :internal_server_error, error: e)
+        end
+      end
+    else
+      yield
+    end
   end
 
   def health_card

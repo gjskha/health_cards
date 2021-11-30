@@ -30,6 +30,8 @@ class ApplicationController < ActionController::Base
   end
 
   def health_card
+
+    puts "in health_card @patient is #{@patient} and session[patient_id] is #{session[:patient_id]}"
     return @health_card if @health_card
     return unless @patient
 

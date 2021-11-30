@@ -10,6 +10,7 @@ class ApplicationController < ActionController::Base
   end
 
   def handle_fhir_errors
+    puts "foo"
     #if request.format.json? || request.format.fhir_json?
     #  begin
         yield

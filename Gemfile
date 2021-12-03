@@ -84,3 +84,5 @@ gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'
 gem 'rack-cors'
+
+gem 'devise'

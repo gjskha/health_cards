@@ -1,3 +1,13 @@
+https://hackernoon.com/using-devise-in-your-ruby-on-rails-application-a-step-by-step-guide-m92i3y5s
+
+As with #94, please make sure you're on the latest version. If that doesn't fix the issue, please look in app/controllers/application_controller.rb and comment out all lines in handle_fhir_errors exceptfor theyield`. This should suppress the error handling and give you the full stack trace. I suspect it is the same issue, but this will help to confirm.
+
+https://github.com/dvci/health_cards/issues/95#issuecomment-932217014
+
+
+https://github.com/dvci/health_cards/issues/94
+
+
 migrating to postgres
 
 https://devcenter.heroku.com/articles/sqlite3

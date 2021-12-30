@@ -11,6 +11,11 @@
   </head>
 
   <body>
+    <!-- devise -->
+    <p class="notice"><%= notice %></p>
+    <p class="alert"><%= alert %></p>
+    <!-- /devise -->       
+    <%= session.inspect %>
     <%= yield %>
   </body>
 </html>

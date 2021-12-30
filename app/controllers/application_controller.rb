@@ -30,6 +30,7 @@ class ApplicationController < ActionController::Base
 
   def health_card
 
+    puts session.inspect
     puts "in health_card @patient is #{@patient} and session[patient_id] is #{session[:patient_id]}"
     return @health_card if @health_card
     return unless @patient
